@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### SECRETS ###
-src/main/resources/com/ece350/assembler/config/secrets.properties
+src/main/resources/com/ece350/assembler/config/
