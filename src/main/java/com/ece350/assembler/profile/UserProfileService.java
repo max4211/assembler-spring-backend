@@ -43,12 +43,23 @@ public class UserProfileService {
 
         // 5. Store the image in s3 and update database with s3 image link
         String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), user.getUserProfileId());
-        String fileName = String.format("%s-%s", file.getName(), UUID.randomUUID());
+        String fileName = String.format("%s-%s", file.getOriginalFilename(), UUID.randomUUID());
         try {
             fileStore.save(path, fileName, Optional.of(metadata), file.getInputStream());
+            user.setUserProfileImageLink(fileName);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    public byte[] downloadUserProfileImage(UUID userProfileId) {
+        UserProfile user = getUserProfileOrThrow(userProfileId);
+        String path = String.format("%s/%s",
+                BucketName.PROFILE_IMAGE.getBucketName(),
+                user.getUserProfileId());
+        return user.getUserProfileImageLink()
+                .map(key -> fileStore.download(path, key))
+                .orElse(new byte[0]);
     }
 
     @org.jetbrains.annotations.NotNull
