@@ -1,6 +1,6 @@
 package com.ece350.assembler.utility.io;
 
-import utility.converter.Converter;
+import com.ece350.assembler.utility.converter.Converter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

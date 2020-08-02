@@ -1,8 +1,8 @@
 package com.ece350.assembler.model.instruction;
 
-import ISA.ISA;
+import com.ece350.assembler.ISA.ISA;
 import exceptions.ReflectionException;
-import utility.tuple.Pair;
+import com.ece350.assembler.utility.tuple.Pair;
 
 import java.lang.reflect.Constructor;
 

@@ -1,12 +1,12 @@
 package com.ece350.assembler;
 
-import ISA.ISA;
-import data.xmlreader.XMLReader;
-import model.assembler.Assembler;
+import com.ece350.assembler.ISA.ISA;
+import com.ece350.assembler.data.xmlreader.XMLReader;
+import com.ece350.assembler.model.assembler.Assembler;
 import org.xml.sax.SAXException;
-import utility.io.FileType;
-import utility.io.Input;
-import utility.io.Output;
+import com.ece350.assembler.utility.io.FileType;
+import com.ece350.assembler.utility.io.Input;
+import com.ece350.assembler.utility.io.Output;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;

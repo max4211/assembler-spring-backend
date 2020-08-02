@@ -1,7 +1,7 @@
 package com.ece350.assembler.ISA;
 
-import utility.tuple.Pair;
-import utility.tuple.Triplet;
+import com.ece350.assembler.utility.tuple.Pair;
+import com.ece350.assembler.utility.tuple.Triplet;
 
 public interface ISAInterface {
 

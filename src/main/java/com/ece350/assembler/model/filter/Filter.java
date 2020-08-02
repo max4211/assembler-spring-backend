@@ -1,7 +1,7 @@
 package com.ece350.assembler.model.filter;
 
-import utility.io.Input;
-import utility.resource.BundleInterface;
+import com.ece350.assembler.utility.io.Input;
+import com.ece350.assembler.utility.resource.BundleInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;

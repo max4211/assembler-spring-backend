@@ -1,6 +1,6 @@
 package com.ece350.assembler.model.instruction;
 
-import utility.converter.Digits;
+import com.ece350.assembler.utility.converter.Digits;
 
 public class JIIType extends Instruction {
 

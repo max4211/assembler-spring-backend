@@ -1,6 +1,6 @@
 package com.ece350.assembler.utility.io;
 
-import utility.converter.SignExtend;
+import com.ece350.assembler.utility.converter.SignExtend;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,11 @@
 package com.ece350.assembler.model.assembler;
 
-import ISA.ISA;
-import model.filter.Filter;
-import model.instruction.Instruction;
-import model.instruction.InstructionFactory;
-import utility.io.Input;
-import utility.io.Output;
+import com.ece350.assembler.ISA.ISA;
+import com.ece350.assembler.model.filter.Filter;
+import com.ece350.assembler.model.instruction.Instruction;
+import com.ece350.assembler.model.instruction.InstructionFactory;
+import com.ece350.assembler.utility.io.Input;
+import com.ece350.assembler.utility.io.Output;
 
 import java.util.Iterator;
 

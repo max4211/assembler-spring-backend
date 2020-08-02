@@ -1,6 +1,6 @@
 package com.ece350.assembler.data.xmlreader;
 
-import ISA.ISA;
+import com.ece350.assembler.ISA.ISA;
 
 /**
  * Module that translates XML-defined ISA into Java friendly structures

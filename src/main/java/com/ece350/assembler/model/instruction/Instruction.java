@@ -1,7 +1,7 @@
 package com.ece350.assembler.model.instruction;
 
-import utility.converter.Converter;
-import utility.converter.Digits;
+import com.ece350.assembler.utility.converter.Converter;
+import com.ece350.assembler.utility.converter.Digits;
 
 public abstract class Instruction implements InstructionInterface {
 

@@ -1,6 +1,6 @@
 package com.ece350.assembler;
 
-import utility.converter.Converter;
+import com.ece350.assembler.utility.converter.Converter;
 
 public class MainConverter {
 

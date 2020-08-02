@@ -1,6 +1,6 @@
 package com.ece350.assembler.model.filter;
 
-import utility.io.Input;
+import com.ece350.assembler.utility.io.Input;
 
 public interface FilterInterface {
 

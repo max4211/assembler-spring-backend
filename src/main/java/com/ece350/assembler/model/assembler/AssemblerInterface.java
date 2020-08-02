@@ -1,7 +1,7 @@
 package com.ece350.assembler.model.assembler;
 
-import utility.io.Input;
-import utility.io.Output;
+import com.ece350.assembler.utility.io.Input;
+import com.ece350.assembler.utility.io.Output;
 
 public interface AssemblerInterface {
 
