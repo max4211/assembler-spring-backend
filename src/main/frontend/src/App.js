@@ -23,6 +23,7 @@ const UserProfiles = () => {
 
     return (
       <div key={index}>
+        {userProfile.userProfileId ? <img src={"http://localhost:8080/api/v1/user-profile/".concat(userProfile.userProfileId, "/image/download")} alt="profile capture"/> : null}
         <h1>{userProfile.username}</h1>
         <p>{userProfile.userProfileId}</p>
         <MyDropzone {...userProfile} />
