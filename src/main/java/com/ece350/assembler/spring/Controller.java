@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/user-profile")
+@RequestMapping("api/v1")
 @CrossOrigin("*")
 public class Controller {
 
@@ -20,14 +20,13 @@ public class Controller {
     }
 
     @PostMapping(
-            path = "{userProfileId}/image/upload",
+            path = "assemble/{type}/{base}",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void uploadUserProfileImage(@PathVariable("userProfileId") String userProfileId,
+    public void uploadUserProfileImage(@PathVariable("type") String type, @PathVariable("base") String base,
                                        @RequestParam("file") MultipartFile file) {
-        System.out.println("ARRIVED AT POST REQUEST!!");
-        myService.assembleUserInput(file);
+        myService.assembleUserInput(file, type, base);
     }
 
 }

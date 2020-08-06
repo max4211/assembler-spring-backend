@@ -10,15 +10,16 @@ import java.io.IOException;
 @org.springframework.stereotype.Service
 public class Service {
 
-    public void assembleUserInput(MultipartFile file) {
-        System.out.print("GOT A FILE, BASE AND TYPE IN THE SERVICE");
+    public void assembleUserInput(MultipartFile file, String type, String base) {
+        System.out.printf("Recieved file in Spring Boot Service %n");
         String content = null;
         try {
             content = new String(file.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.printf("File content: %s%n", content);
+        System.out.printf("File type: %s%nDesired base: %s%n", type, base);
+        System.out.printf("File content: %n%s%n", content);
     }
 
 }
