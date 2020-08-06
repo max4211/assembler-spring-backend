@@ -1,6 +1,7 @@
 package com.ece350.assembler.spring;
 
 import com.amazonaws.util.IOUtils;
+import com.ece350.assembler.MainAssembler;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
@@ -15,6 +16,7 @@ public class Service {
         String content = null;
         try {
             content = new String(file.getBytes());
+            MainAssembler.assemble(content, type, base);
         } catch (IOException e) {
             e.printStackTrace();
         }

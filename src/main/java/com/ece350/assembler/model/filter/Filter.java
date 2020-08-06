@@ -109,7 +109,7 @@ public class Filter implements FilterInterface {
     private String filterRegisterNames(String input) {
         try {
             final String SPACE = " ";
-            final String registerNames = "src/data/MIPS/register.properties";
+            final String registerNames = "src/main/java/com/ece350/assembler/data/MIPS/register.properties";
             final ResourceBundle resourceBundle = BundleInterface.createResourceBundle(registerNames);
             StringBuilder sb = new StringBuilder(input);
             String[] split = input.split(SPACE);

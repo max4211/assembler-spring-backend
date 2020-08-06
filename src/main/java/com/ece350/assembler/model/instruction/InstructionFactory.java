@@ -8,7 +8,7 @@ import java.lang.reflect.Constructor;
 
 public class InstructionFactory implements FactoryInterface {
 
-    private static final String INSTRUCTION_PATH = "model.instruction";
+    private static final String INSTRUCTION_PATH = "com.ece350.assembler.model.instruction";
     private static final String TYPE_SUFFX = "Type";
     private static final String SPACE = " ";
     private static final int ZERO = 0;
@@ -32,6 +32,8 @@ public class InstructionFactory implements FactoryInterface {
     }
 
     private String createInstructionPath(String instruction) {
-        return String.format("%s.%s", INSTRUCTION_PATH, instruction);
+        String path = String.format("%s.%s", INSTRUCTION_PATH, instruction);
+        System.out.printf("instruction path: %s%n", path);
+        return path;
     }
 }
