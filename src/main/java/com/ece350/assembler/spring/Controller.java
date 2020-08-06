@@ -5,10 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.UUID;
-
 @RestController
-@RequestMapping("api/v1/assembler")
+@RequestMapping("api/v1")
 @CrossOrigin("*")
 public class Controller {
 
@@ -20,13 +18,14 @@ public class Controller {
     }
 
     @PostMapping(
-            path = "{userProfileId}/image/upload",
-            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public void uploadUserProfileImage(@PathVariable("userProfileId") UUID userProfileId,
-                                       @RequestParam("file") MultipartFile file) {
-        myService.uploadUserProfileImage(userProfileId, file);
+            path = "assemble",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, "text/plain"}
+            )
+    public void assembleUserInput(@RequestParam("file") MultipartFile file,
+                                       @RequestParam("base") String base,
+                                       @RequestParam("type") String type) {
+        System.out.println("ARRIVED AT POST REQUEST!!");
+        myService.assembleUserInput(file, base, type);
     }
 
 }
