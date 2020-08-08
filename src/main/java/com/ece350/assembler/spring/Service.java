@@ -13,6 +13,7 @@ public class Service {
 
     public void assembleUserInput(MultipartFile file, String type, String base) {
         System.out.printf("Recieved file in Spring Boot Service %n");
+        System.out.printf("File type: %s%nDesired base: %s%n", type, base);
         String content = null;
         try {
             content = new String(file.getBytes());
@@ -20,8 +21,7 @@ public class Service {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.printf("File type: %s%nDesired base: %s%n", type, base);
-        System.out.printf("File content: %n%s%n", content);
+        System.out.println("SUCCESSFULLY ASSEMBLED FILE IN SERVICE !!! :)");
     }
 
 }

@@ -10,7 +10,7 @@ public class Output implements OutputInterface, CustomList {
 
     private List<String> myOutput;
     private static final String NEWLINE = "\n";
-    private static final String OUTPUTFILE_PATH = "utility.io";
+    private static final String OUTPUTFILE_PATH = "com.ece350.assembler.utility.io";
     private static final String FILE_TAG = "File";
 
     public Output() {
