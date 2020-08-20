@@ -24,7 +24,7 @@ public class Controller {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void uploadUserProfileImage(@PathVariable("type") String type, @PathVariable("base") String base,
+    public void generateAssembledOutput(@PathVariable("type") String type, @PathVariable("base") String base,
                                        @RequestParam("file") MultipartFile file) {
         myService.assembleUserInput(file, type, base);
     }

@@ -4,7 +4,10 @@ public enum Base {
 
     DEC(10),
     BIN(2),
-    HEX(16);
+    HEX(16),
+    dec(10),
+    bin(2),
+    hex(16);
 
     private final int myBase;
 
