@@ -12,7 +12,7 @@ public class Input implements Iterable, CustomList{
     private List<String> myInput;
 
     public Input(String s) {
-        this.myInput = new ArrayList<>(List.of(s));
+        this.myInput = new ArrayList<>(List.of(s.split("\n")));
     }
 
     public Input(List<String> input) {
