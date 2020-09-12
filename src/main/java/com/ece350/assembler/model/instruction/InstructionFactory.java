@@ -33,7 +33,6 @@ public class InstructionFactory implements FactoryInterface {
 
     private String createInstructionPath(String instruction) {
         String path = String.format("%s.%s", INSTRUCTION_PATH, instruction);
-        System.out.printf("instruction path: %s%n", path);
         return path;
     }
 }

@@ -20,7 +20,7 @@ public interface MainAssembler {
             // CODE WHICH WILL BE USER INPUT PARAMETERS
             String ISAfile = "src/main/java/com/ece350/assembler/data/MIPS/ece350ISA.xml";
             String outputPath = "src/data/test";
-            String digits = "8";
+            String digits = parseDigits(outputBase);
 
             // MODEL CODE TO GET TO OUTPUT
             XMLReader reader = new XMLReader(ISAfile);
@@ -35,7 +35,15 @@ public interface MainAssembler {
             System.out.println("Could not assemble file");
             e.printStackTrace();
         }
+    }
 
+    private static String parseDigits(String outputBase) {
+        switch(outputBase) {
+            case "HEX": return "8";
+            case "BIN": return "32";
+            case "DEC": return "16";
+            default: return "32";
+        }
     }
 
 }
