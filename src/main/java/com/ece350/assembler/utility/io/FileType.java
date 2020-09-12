@@ -4,7 +4,8 @@ public enum FileType {
 
     MIF("Mif"),
     LOGISM("Logism"),
-    TEXT("Text");
+    TEXT("Text"),
+    MEM("Mem");
 
     private final String myType;
 
