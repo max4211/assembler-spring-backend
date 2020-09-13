@@ -1,8 +1,11 @@
 package com.ece350.assembler.utility.io;
 
 import com.ece350.assembler.utility.converter.Converter;
+import org.springframework.boot.web.servlet.server.Encoding;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamResource;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -46,6 +49,18 @@ public abstract class OutputFile implements Save {
         }
     }
 
+    public ByteArrayResource getInputStreamResource() {
+        try {
+            String fullString = outputListToString();
+            byte[] byteArray = fullString.getBytes();
+//            InputStream inputStream = new ByteArrayInputStream(byteArray);
+            return new ByteArrayResource(byteArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public List<String> saveFile() {
         return this.myOutput.getList();
     }
@@ -75,6 +90,15 @@ public abstract class OutputFile implements Save {
         for (String s: data)
             output.add(s);
         this.myOutput = output;
+    }
+
+    private String outputListToString() {
+        StringBuilder sb = new StringBuilder();
+        for (String s: this.myOutput.getList()) {
+            sb.append(s);
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
 }

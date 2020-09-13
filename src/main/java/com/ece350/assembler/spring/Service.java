@@ -2,26 +2,27 @@ package com.ece350.assembler.spring;
 
 import com.amazonaws.util.IOUtils;
 import com.ece350.assembler.MainAssembler;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 
 
 @org.springframework.stereotype.Service
 public class Service {
 
-    public void assembleUserInput(MultipartFile file, String type, String base) {
-        System.out.printf("Recieved file in Spring Boot Service %n");
-        System.out.printf("File type: %s%nDesired base: %s%n", type, base);
+    public ByteArrayResource assembleUserInput(MultipartFile file, String type, String base) {
         String content = null;
         try {
             content = new String(file.getBytes());
-            MainAssembler.assemble(content, type, base);
+            return MainAssembler.assemble(content, type, base);
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-        System.out.println("SUCCESSFULLY ASSEMBLED FILE IN SERVICE !!! :)");
     }
 
 }

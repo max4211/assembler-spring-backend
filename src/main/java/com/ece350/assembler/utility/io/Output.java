@@ -1,7 +1,10 @@
 package com.ece350.assembler.utility.io;
 
 import com.ece350.assembler.exceptions.ReflectionException;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamResource;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +45,17 @@ public class Output implements OutputInterface, CustomList {
             Constructor ctor = clazz.getConstructor(String.class, String.class, String.class, Output.class);
             OutputFile file = (OutputFile) ctor.newInstance(outputPath, outputBase, digits, this);
             file.save();
+        } catch (Exception e) {
+            throw new ReflectionException(e);
+        }
+    }
+
+    public ByteArrayResource writeToFile(String fileType, String outputBase, String digits) {
+        try {
+            Class clazz = Class.forName(createOutputFilePath(fileType));
+            Constructor ctor = clazz.getConstructor(String.class, String.class, Output.class);
+            OutputFile file = (OutputFile) ctor.newInstance(outputBase, digits, this);
+            return file.getInputStreamResource();
         } catch (Exception e) {
             throw new ReflectionException(e);
         }
