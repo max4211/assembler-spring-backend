@@ -1,6 +1,8 @@
 package com.ece350.assembler.spring;
 
 import com.ece350.assembler.exceptions.GeneralParserException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
@@ -22,6 +24,7 @@ import java.util.UUID;
 public class Controller {
 
     private final Service myService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(Controller.class);
 
     @Autowired
     public Controller(Service service) {
@@ -43,6 +46,7 @@ public class Controller {
             @PathVariable("type") String type, @PathVariable("base") String base,
             @RequestParam("file") MultipartFile file) {
         try {
+            LOGGER.info("Inside Controller.java, attempting to assemble file");
             ByteArrayResource resource = myService.assembleUserInput(file, type, base);
 
             String fileName = createFileName(file.getOriginalFilename(), type);
@@ -65,10 +69,7 @@ public class Controller {
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(resource);
 
-        } catch (GeneralParserException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
+        } catch (GeneralParserException | IOException e) {
             e.printStackTrace();
             return null;
         }

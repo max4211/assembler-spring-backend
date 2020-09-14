@@ -5,10 +5,8 @@ import com.ece350.assembler.data.xmlreader.XMLReader;
 import com.ece350.assembler.exceptions.GeneralParserException;
 import com.ece350.assembler.model.assembler.Assembler;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.util.ResourceUtils;
 import org.xml.sax.SAXException;
-import com.ece350.assembler.utility.io.FileType;
 import com.ece350.assembler.utility.io.Input;
 import com.ece350.assembler.utility.io.Output;
 
@@ -21,7 +19,7 @@ public interface MainAssembler {
     static ByteArrayResource assemble(String fileString, String fileType, String outputBase) throws GeneralParserException {
         try {
             // CODE WHICH WILL BE USER INPUT PARAMETERS
-            String ISAfile = "src/main/java/com/ece350/assembler/data/MIPS/ece350ISA.xml";
+            File ISAfile = ResourceUtils.getFile("classpath:config/ece350ISA.xml");
             String digits = parseDigits(outputBase);
 
             // MODEL CODE TO GET TO OUTPUT
