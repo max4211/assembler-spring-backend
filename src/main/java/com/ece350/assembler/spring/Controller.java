@@ -26,6 +26,12 @@ public class Controller {
         this.myService = service;
     }
 
+    @GetMapping("/test")
+    @ResponseBody
+    public String helloWorld() {
+        return "HelloWorld!";
+    }
+
     @PostMapping(
             path = "assemble/{type}/{base}",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,

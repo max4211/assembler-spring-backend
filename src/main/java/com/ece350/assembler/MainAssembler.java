@@ -39,7 +39,7 @@ public interface MainAssembler {
         }
     }
 
-    private static String parseDigits(String outputBase) {
+    static String parseDigits(String outputBase) {
         switch(outputBase) {
             case "HEX": return "8";
             case "BIN": return "32";
