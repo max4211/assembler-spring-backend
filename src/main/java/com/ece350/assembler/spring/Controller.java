@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,11 +36,20 @@ public class Controller {
             @RequestParam("file") MultipartFile file) {
         try {
             ByteArrayResource resource = myService.assembleUserInput(file, type, base);
+
+            String fileName = createFileName(file.getOriginalFilename(), type);
+//            ContentDisposition contentDisposition = ContentDisposition.builder("attachment")
+//                    .filename(fileName)
+//                    .build();
+
             HttpHeaders header = new HttpHeaders();
-            header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=img.jpg");
-            header.add("Cache-Control", "no-cache, no-store, must-revalidate");
-            header.add("Pragma", "no-cache");
-            header.add("Expires", "0");
+            header.add(HttpHeaders.CONTENT_DISPOSITION, String.format("attachment; filename=%s", fileName));
+            header.add(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate");
+            header.add(HttpHeaders.PRAGMA, fileName);
+//           header.add(HttpHeaders.PRAGMA, "no-cache");
+            header.add(HttpHeaders.EXPIRES, "0");
+//            header.add("Custom-Filename", fileName);
+
             
             return ResponseEntity.ok()
                     .headers(header)
@@ -51,6 +61,15 @@ public class Controller {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private static String createFileName(String originalFileName, String desiredFileType) {
+        String filePrefix = originalFileName.substring(0, originalFileName.indexOf(".s"));
+        StringBuilder sb = new StringBuilder();
+        sb.append(filePrefix);
+        sb.append(".");
+        sb.append(desiredFileType.toLowerCase());
+        return sb.toString();
     }
 
 }

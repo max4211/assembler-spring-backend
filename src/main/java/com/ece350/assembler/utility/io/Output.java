@@ -55,7 +55,7 @@ public class Output implements OutputInterface, CustomList {
             Class clazz = Class.forName(createOutputFilePath(fileType));
             Constructor ctor = clazz.getConstructor(String.class, String.class, Output.class);
             OutputFile file = (OutputFile) ctor.newInstance(outputBase, digits, this);
-            return file.getInputStreamResource();
+            return file.getByteArrayResource();
         } catch (Exception e) {
             throw new ReflectionException(e);
         }

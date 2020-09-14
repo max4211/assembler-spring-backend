@@ -49,11 +49,10 @@ public abstract class OutputFile implements Save {
         }
     }
 
-    public ByteArrayResource getInputStreamResource() {
+    public ByteArrayResource getByteArrayResource() {
         try {
             String fullString = outputListToString();
             byte[] byteArray = fullString.getBytes();
-//            InputStream inputStream = new ByteArrayInputStream(byteArray);
             return new ByteArrayResource(byteArray);
         } catch (Exception e) {
             e.printStackTrace();

@@ -21,7 +21,6 @@ public interface MainAssembler {
         try {
             // CODE WHICH WILL BE USER INPUT PARAMETERS
             String ISAfile = "src/main/java/com/ece350/assembler/data/MIPS/ece350ISA.xml";
-            String outputPath = "src/data/test";
             String digits = parseDigits(outputBase);
 
             // MODEL CODE TO GET TO OUTPUT
