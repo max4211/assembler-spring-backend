@@ -2,6 +2,7 @@ package com.ece350.assembler;
 
 import com.ece350.assembler.ISA.ISA;
 import com.ece350.assembler.data.xmlreader.XMLReader;
+import com.ece350.assembler.exceptions.GeneralParserException;
 import com.ece350.assembler.model.assembler.Assembler;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
@@ -17,7 +18,7 @@ import java.io.IOException;
 
 public interface MainAssembler {
 
-    static ByteArrayResource assemble(String fileString, String fileType, String outputBase)  {
+    static ByteArrayResource assemble(String fileString, String fileType, String outputBase) throws GeneralParserException {
         try {
             // CODE WHICH WILL BE USER INPUT PARAMETERS
             String ISAfile = "src/main/java/com/ece350/assembler/data/MIPS/ece350ISA.xml";
@@ -33,9 +34,7 @@ public interface MainAssembler {
             Output output = myAssembler.assemble(input);
             return output.writeToFile(fileType, outputBase, digits);
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            System.out.println("Could not assemble file");
-            e.printStackTrace();
-            return null;
+            throw new GeneralParserException(e);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.ece350.assembler.spring;
 
+import com.ece350.assembler.exceptions.GeneralParserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 @RestController
@@ -63,7 +65,10 @@ public class Controller {
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(resource);
 
-        } catch (Exception e) {
+        } catch (GeneralParserException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
