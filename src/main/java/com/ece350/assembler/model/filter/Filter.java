@@ -2,6 +2,7 @@ package com.ece350.assembler.model.filter;
 
 import com.ece350.assembler.utility.io.Input;
 import com.ece350.assembler.utility.resource.BundleInterface;
+import com.ece350.assembler.utility.resource.GetFile;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
@@ -111,7 +112,7 @@ public class Filter implements FilterInterface {
     private String filterRegisterNames(String input) {
         try {
             final String SPACE = " ";
-            final File registerNames = ResourceUtils.getFile("classpath:config/register.properties");
+            final File registerNames = GetFile.getRegisterFile();
 //            final String registerNames = "src/main/java/com/ece350/assembler/data/MIPS/register.properties";
             final ResourceBundle resourceBundle = BundleInterface.createResourceBundle(registerNames);
             StringBuilder sb = new StringBuilder(input);
