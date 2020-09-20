@@ -33,6 +33,11 @@ public class XMLReader implements XMLGeneratorInterface, XMLParseInterface {
         myDocument = XMLGeneratorInterface.createDocument(new File(file));
     }
 
+    // Empty constructor for mirroring function in Main Assembler
+    public XMLReader() throws IOException, SAXException, ParserConfigurationException{
+
+    }
+
     @Override
     public ISA getISA() {
         List<Triplet> myList = new ArrayList<>();

@@ -16,9 +16,11 @@ public class AmazonConfig {
 
     @Value("${AWS_ACCESS_KEY}")
     private String AWS_ACCESS_KEY;
+    // private String AWS_ACCESS_KEY = System.getenv("AWS_ACCESS_KEY");
 
     @Value("${AWS_SECRET_KEY}")
     private String AWS_SECRET_KEY;
+    // private String AWS_SECRET_KEY = System.getenv("AWS_SECRET_KEY");
 
     @Bean
     public AmazonS3 s3() {

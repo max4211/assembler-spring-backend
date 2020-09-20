@@ -4,16 +4,14 @@ import com.ece350.assembler.ISA.ISA;
 import com.ece350.assembler.data.xmlreader.XMLReader;
 import com.ece350.assembler.exceptions.GeneralParserException;
 import com.ece350.assembler.model.assembler.Assembler;
-import com.ece350.assembler.utility.resource.GetFile;
+import com.ece350.assembler.utility.resource.ConfigData;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.util.ResourceUtils;
 import org.xml.sax.SAXException;
 import com.ece350.assembler.utility.io.Input;
 import com.ece350.assembler.utility.io.Output;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface MainAssembler {
@@ -21,12 +19,12 @@ public interface MainAssembler {
     static ByteArrayResource assemble(String fileString, String fileType, String outputBase) throws GeneralParserException {
         try {
             // CODE WHICH WILL BE USER INPUT PARAMETERS
-            File ISAfile = GetFile.getISAFile();
             String digits = parseDigits(outputBase);
 
             // MODEL CODE TO GET TO OUTPUT
-            XMLReader reader = new XMLReader(ISAfile);
-            ISA myISA = reader.getISA();
+            XMLReader xmlReader = new XMLReader();
+            ISA myISA = ConfigData.getISAData();
+            // ISA myISA = reader.getISA();
             Assembler myAssembler = new Assembler(myISA);
             Input input = new Input(fileString);
 

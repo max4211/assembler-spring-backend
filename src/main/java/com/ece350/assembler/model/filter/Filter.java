@@ -1,14 +1,15 @@
 package com.ece350.assembler.model.filter;
 
+import com.ece350.assembler.filestore.FileStore;
 import com.ece350.assembler.utility.io.Input;
 import com.ece350.assembler.utility.resource.BundleInterface;
-import com.ece350.assembler.utility.resource.GetFile;
-import org.springframework.util.ResourceUtils;
+import com.ece350.assembler.utility.resource.ConfigData;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Filter implements FilterInterface {
@@ -110,24 +111,21 @@ public class Filter implements FilterInterface {
     }
 
     private String filterRegisterNames(String input) {
-        try {
-            final String SPACE = " ";
-            final File registerNames = GetFile.getRegisterFile();
+        final String SPACE = " ";
 //            final String registerNames = "src/main/java/com/ece350/assembler/data/MIPS/register.properties";
-            final ResourceBundle resourceBundle = BundleInterface.createResourceBundle(registerNames);
-            StringBuilder sb = new StringBuilder(input);
-            String[] split = input.split(SPACE);
-            for (String s: split) {
-                if (resourceBundle.containsKey(s)) {
-                    int start = sb.indexOf(s);
-                    int end = start + s.length();
-                    sb.replace(start, end, resourceBundle.getString(s));
-                }
+//            final ResourceBundle resourceBundle = BundleInterface.createResourceBundle(new File(registerNames));
+        final Map<String, String> resourceBundle = ConfigData.getRegisterMap();
+        StringBuilder sb = new StringBuilder(input);
+        String[] split = input.split(SPACE);
+        for (String s: split) {
+            if (resourceBundle.containsKey(s)) {
+                int start = sb.indexOf(s);
+                int end = start + s.length();
+                sb.replace(start, end, resourceBundle.get(s));
+//                    sb.replace(start, end, resourceBundle.getString(s));
             }
-            return sb.toString();
-        } catch (IOException e) {
-            return input;
         }
+        return sb.toString();
     }
 
     // TODO - refactor to regex
