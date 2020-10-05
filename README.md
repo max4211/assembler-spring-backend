@@ -1,14 +1,4 @@
----
-title: 'Project documentation template'
-disqus: hackmd
----
-
-ECE350 Assembler
-===
-
-## Table of Contents
-
-[TOC]
+# ECE350 Assembler
 
 ## Project Goals
 The goal of this application is to streamline the development cycle of ECE350 students in their final project by automating the assembly process. At a high level, the application exposes a REST API where a student can send in a .s file along with target file type (e.g. Logism) and base (e.g. Hex) and the API returns an assembled file according to the ISA.
