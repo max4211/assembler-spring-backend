@@ -68,6 +68,8 @@ public interface ConfigData {
         myList.add(new Triplet("or","R","00011"));
         myList.add(new Triplet("sll","R","00100"));
         myList.add(new Triplet("sra","R","00101"));
+        myList.add(new Triplet("mul","R","00110"));
+        myList.add(new Triplet("div","R","00111"));
         myList.add(new Triplet("sw","I","00111"));
         myList.add(new Triplet("lw","I","01000"));
         myList.add(new Triplet("j","JI","00001"));
@@ -78,7 +80,7 @@ public interface ConfigData {
         myList.add(new Triplet("bex","JI","10110"));
         myList.add(new Triplet("setx","JI","10101"));
         myList.add(new Triplet("nop","NOP","00000"));
-        myList.add(new Triplet("zoom","R","10101"));
+        myList.add(new Triplet("custom_r","R","01000"));
         return new ISA(myList);
     }
 

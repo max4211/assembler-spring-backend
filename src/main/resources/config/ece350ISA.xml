@@ -36,6 +36,16 @@
         <Code>00101</Code>
     </Instruction>
     <Instruction>
+        <Name>mul</Name>
+        <Type>R</Type>
+        <Code>00110</Code>
+    </Instruction>
+    <Instruction>
+        <Name>div</Name>
+        <Type>R</Type>
+        <Code>00111</Code>
+    </Instruction>
+    <Instruction>
         <Name>sw</Name>
         <Type>I</Type>
         <Code>00111</Code>
@@ -86,8 +96,8 @@
         <Code>00000</Code>
     </Instruction>
     <Instruction>
-        <Name>zoom</Name>
+        <Name>custom_r</Name>
         <Type>R</Type>
-        <Code>10101</Code>
+        <Code>01000</Code>
     </Instruction>
 </ISA>
