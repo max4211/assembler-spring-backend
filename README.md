@@ -14,7 +14,7 @@ I hoped to make it as easy as possible to extend the code base to new file types
 ### ISA and Registers
 The original design goal of the project was to be completely data driven, particularly with regards to a new ISA. Ideally, the ISA can be pulled from a secure location and is interpreted during each assemble API request. In this way, the ISA can be modified at runtime, and so long as new instructions can be molded to fit one of the existing formats in MIPS it can trivially be added to the architecture.
 
-Below is a sample from the current ISA configuration file. I selected XML for ease of readability. The `Name` field corresponds to what the assembler expects in raw text form on the input file. The `Type` field facilitates reflection in the assembler in order to generate `Instruction` objects which then execute into raw binary translation. The `Code` field are the binary values that the instruction translates to upon instruciton execute. 
+Below is a sample from the current [ISA configuration file](https://github.com/max4211/assembler-spring-backend/blob/master/src/main/resources/config/ece350ISA.xml). I selected XML for ease of readability. The `Name` field corresponds to what the assembler expects in raw text form on the input file. The `Type` field facilitates reflection in the assembler in order to generate `Instruction` objects which then execute into raw binary translation. The `Code` field are the binary values that the instruction translates to upon instruciton execute. 
 
 ```htmlembedded=
 <?xml version="1.0" encoding="UTF-8" ?>
