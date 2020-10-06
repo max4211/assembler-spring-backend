@@ -100,4 +100,9 @@
         <Type>R</Type>
         <Code>01000</Code>
     </Instruction>
+    <Instruction>
+        <Name>test</Name>
+        <Type>R</Type>
+        <Code>11111</Code>
+    </Instruction>
 </ISA>
