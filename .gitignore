@@ -34,4 +34,4 @@ build/
 
 ### SECRETS ###
 src/main/resources/application.properties
-src/main/resource/keystore.p12
+src/main/resources/keystore.p12
