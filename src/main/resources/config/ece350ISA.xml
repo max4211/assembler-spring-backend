@@ -105,4 +105,9 @@
         <Type>R</Type>
         <Code>11111</Code>
     </Instruction>
+    <Instruction>
+        <Name>board</Name>
+        <Type>I</Type>
+        <Code>01010</Code>
+    </Instruction>
 </ISA>
