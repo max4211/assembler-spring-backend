@@ -29,9 +29,13 @@ public class XMLReader implements XMLGeneratorInterface, XMLParseInterface {
         myDocument = XMLGeneratorInterface.createDocument(file);
     }
 
-    public XMLReader(String file) throws IOException, SAXException, ParserConfigurationException {
-        myDocument = XMLGeneratorInterface.createDocument(new File(file));
+    public XMLReader(String rawFile) throws IOException, SAXException, ParserConfigurationException {
+        myDocument = XMLGeneratorInterface.createDocument(rawFile);
     }
+
+//    public XMLReader(String file) throws IOException, SAXException, ParserConfigurationException {
+//        myDocument = XMLGeneratorInterface.createDocument(new File(file));
+//    }
 
     // Empty constructor for mirroring function in Main Assembler
     public XMLReader() throws IOException, SAXException, ParserConfigurationException{
