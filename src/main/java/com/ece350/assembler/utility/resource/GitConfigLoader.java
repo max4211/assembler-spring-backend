@@ -38,7 +38,7 @@ public interface GitConfigLoader {
         }
         InputStream crunchifyStream = crunchifyHttp.getInputStream();
         String crunchifyResponse = crunchifyGetStringFromStream(crunchifyStream);
-        System.out.println(crunchifyResponse);
+//        System.out.println(crunchifyResponse);
 
 //        testFile(crunchifyResponse);
 

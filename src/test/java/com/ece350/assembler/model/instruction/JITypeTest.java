@@ -1,6 +1,14 @@
 package com.ece350.assembler.model.instruction;
 
+import com.ece350.assembler.ISA.ISA;
+import com.ece350.assembler.model.assembler.Assembler;
+import com.ece350.assembler.utility.io.Input;
+import com.ece350.assembler.utility.io.Output;
+import com.ece350.assembler.utility.resource.ConfigData;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,6 +41,66 @@ class JITypeTest {
         String result = instruction.execute();
         String expected = "10110000000000000000000000010000";
 //        System.out.printf("expected.length() = %d\n", expected.length());
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void testJPositive() {
+        ISA myISA = ConfigData.getISAData();
+        Assembler myAssembler = new Assembler(myISA);
+
+        String userInput = "j 42";
+        Input input = new Input(userInput);
+        Output output = myAssembler.assemble(input);
+
+        List<String> result = output.getList();
+        List<String> expected = new ArrayList<String>(List.of("00001000000000000000000000101010"));
+        assertEquals(32, expected.get(0).length());
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void testJNegative() {
+        ISA myISA = ConfigData.getISAData();
+        Assembler myAssembler = new Assembler(myISA);
+
+        String userInput = "j -8";
+        Input input = new Input(userInput);
+        Output output = myAssembler.assemble(input);
+
+        List<String> result = output.getList();
+        List<String> expected = new ArrayList<String>(List.of("00001111111111111111111111111000"));
+        assertEquals(32, expected.get(0).length());
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void testJALPositive() {
+        ISA myISA = ConfigData.getISAData();
+        Assembler myAssembler = new Assembler(myISA);
+
+        String userInput = "jal 42";
+        Input input = new Input(userInput);
+        Output output = myAssembler.assemble(input);
+
+        List<String> result = output.getList();
+        List<String> expected = new ArrayList<String>(List.of("00011000000000000000000000101010"));
+        assertEquals(32, expected.get(0).length());
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void testJALNegative() {
+        ISA myISA = ConfigData.getISAData();
+        Assembler myAssembler = new Assembler(myISA);
+
+        String userInput = "jal -289";
+        Input input = new Input(userInput);
+        Output output = myAssembler.assemble(input);
+
+        List<String> result = output.getList();
+        List<String> expected = new ArrayList<String>(List.of("00011111111111111111111011011111"));
+        assertEquals(32, expected.get(0).length());
         assertEquals(expected, result);
     }
 

@@ -2,7 +2,10 @@ package com.ece350.assembler.utility.resource;
 
 import com.amazonaws.services.sagemaker.model.GitConfig;
 import com.ece350.assembler.ISA.ISA;
+import com.ece350.assembler.spring.Service;
 import com.ece350.assembler.utility.tuple.Triplet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface ConfigData {
+
+    static final Logger LOGGER = LoggerFactory.getLogger(ConfigData.class);
 
     static Map<String, String> getRegisterMap() {
         Map<String, String> registerMap = new HashMap<>();
@@ -63,8 +68,10 @@ public interface ConfigData {
     static ISA getISAData() {
         try {
             ISA myISA = GitConfigLoader.getISA();
+            LOGGER.info("Successfully fetched ISA from GitHub :)");
             return myISA;
         } catch (Throwable e) {
+            LOGGER.debug("Throwable in GitHub raw config pull, defaulting to code");
             List<Triplet> myList = new ArrayList<>();
             myList.add(new Triplet("add","R","00000"));
             myList.add(new Triplet("addi","I","00101"));
