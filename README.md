@@ -1,4 +1,5 @@
 # ECE350 Assembler
+[Checkpoint Link](https://docs.google.com/document/d/1lWidKfZjJPaiOQSDBa6b3rpWHXM1RloXSUBQB6QC6M8/edit)
 
 ## Project Goals
 The goal of this application is to streamline the development cycle of ECE350 students in their final project by automating the assembly process. At a high level, the application exposes a REST API where a student can send in a .s file along with target file type (e.g. Logism) and base (e.g. Hex) and the API returns an assembled file according to the ISA.
@@ -72,4 +73,5 @@ All components of the application are deployed on AWS. I used AWS Elastic Beanst
 
 ## Author
 Max Smith
+
 max.smith@duke.edu

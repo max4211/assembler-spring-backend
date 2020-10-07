@@ -68,7 +68,7 @@ public abstract class OutputFile implements Save {
         Output output = new Output();
         for (String s: this.myOutput.getList()) {
             Converter c = new Converter(s, INPUT_BASE, outputBase, digits);
-            output.add(c.execute());
+            output.add(c.execute());        // JI breaks here
         }
         this.myOutput = output;
     }

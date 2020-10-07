@@ -39,10 +39,17 @@ public class Filter implements FilterInterface {
             s = filterCommas(s);
             s = filterRegisters(s);
             s = filterImmediate(s);
-            output.add(s);
+            if (notEmpty(s)) {
+                output.add(s);
+            }
+
         }
         output = filterEmptyLines(output);
         return new Input(output);
+    }
+
+    private boolean notEmpty(String s) {
+        return (s != null && s.length() > 0);
     }
 
     private List<String> filterEmptyLines(List<String> input) {
@@ -110,19 +117,19 @@ public class Filter implements FilterInterface {
         return sb.toString();
     }
 
+    /*
+    * Expected behavior - replace all register names with int value of register
+    * */
     private String filterRegisterNames(String input) {
         final String SPACE = " ";
-//            final String registerNames = "src/main/java/com/ece350/assembler/data/MIPS/register.properties";
-//            final ResourceBundle resourceBundle = BundleInterface.createResourceBundle(new File(registerNames));
         final Map<String, String> resourceBundle = ConfigData.getRegisterMap();
         StringBuilder sb = new StringBuilder(input);
-        String[] split = input.split(SPACE);
+        String[] split = input.split("\\s+");
         for (String s: split) {
             if (resourceBundle.containsKey(s)) {
                 int start = sb.indexOf(s);
                 int end = start + s.length();
                 sb.replace(start, end, resourceBundle.get(s));
-//                    sb.replace(start, end, resourceBundle.getString(s));
             }
         }
         return sb.toString();

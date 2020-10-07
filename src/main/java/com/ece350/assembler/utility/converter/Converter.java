@@ -25,9 +25,13 @@ public class Converter implements ConverterInterface {
 
     @Override
     public String execute() {
-        int dec = Integer.parseInt(this.myInputValue, this.myInputBase.getBase());
-        String bin = Integer.toString(dec, this.myOutputBase.getBase());
-        return signExtend(bin, this.myDigits);
+        try {
+            int dec = Integer.parseInt(this.myInputValue, this.myInputBase.getBase());
+            String bin = Integer.toString(dec, this.myOutputBase.getBase());
+            return signExtend(bin, this.myDigits);
+        } catch (NumberFormatException e) {
+            return this.myInputValue;
+        }
     }
 
     private String signExtend(String input, int digits) {
