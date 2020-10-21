@@ -75,7 +75,7 @@ public class Filter implements FilterInterface {
         boolean inMap = this.myLabelMap.containsKey(last);
         if (inMap) {
             int labelLine = this.myLabelMap.get(last);
-            int absoluteOffset = labelLine - lineCount;
+            int absoluteOffset = labelLine - lineCount - 1;
             int PCOffset = absoluteOffset * WORD_SIZE;
             StringBuilder sb = new StringBuilder(s);
             sb.replace(s.indexOf(last), s.length(), String.valueOf(PCOffset));
