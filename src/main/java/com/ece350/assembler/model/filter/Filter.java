@@ -76,12 +76,13 @@ public class Filter implements FilterInterface {
             int labelLine = this.myLabelMap.get(last);
             int absoluteOffset = labelLine - lineCount;
             int PCOffset = absoluteOffset * 4;
-            System.out.printf("appendLabels(%s, %d)\tlast: (%s)\n", s, lineCount, last);
-            System.out.printf("labelLine: (%d)\tabsoluteOffset: (%d)\tPCOffset: (%d)\n", labelLine, absoluteOffset, PCOffset);
-
             StringBuilder sb = new StringBuilder(s);
             sb.replace(s.indexOf(last), s.length(), String.valueOf(PCOffset));
-            System.out.printf("updated string: (%s)\n", sb.toString());
+
+//            System.out.printf("appendLabels(%s, %d)\tlast: (%s)\n", s, lineCount, last);
+//            System.out.printf("labelLine: (%d)\tabsoluteOffset: (%d)\tPCOffset: (%d)\n", labelLine, absoluteOffset, PCOffset);
+//            System.out.printf("updated string: (%s)\n", sb.toString());
+
             s = sb.toString();
         }
 
@@ -106,8 +107,9 @@ public class Filter implements FilterInterface {
             this.myLabelMap.put(label, lineCount);
             String sNew = s.substring(index+1);
 
-            System.out.printf("filterLabls(%s, %d)\t@index: (%d)\tlabel: (%s)\tsNew: (%s)\n", s, lineCount, index, label, sNew);
-            s = sNew;
+//            System.out.printf("filterLabls(%s, %d)\t@index: (%d)\tlabel: (%s)\tsNew: (%s)\n", s, lineCount, index, label, sNew);
+
+            s = sNew.trim();
         }
 
         return s;
