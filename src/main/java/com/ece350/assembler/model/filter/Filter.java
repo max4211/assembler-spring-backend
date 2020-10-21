@@ -1,20 +1,17 @@
 package com.ece350.assembler.model.filter;
 
-//import com.ece350.assembler.filestore.FileStore;
 import com.ece350.assembler.utility.io.Input;
-import com.ece350.assembler.utility.resource.BundleInterface;
 import com.ece350.assembler.utility.resource.ConfigData;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 public class Filter implements FilterInterface {
 
     private final Input myInput;
+    private Map<String, Integer> myLabelMap;
 
     public Filter(Input input) {
         this.myInput = input;
@@ -31,21 +28,89 @@ public class Filter implements FilterInterface {
     @Override
     public Input filter() {
         List<String> output = new ArrayList<>();
+        List<String> partialFilteredInput = filterFormatting();
+
+        for (String s: partialFilteredInput) {
+            s = filterRegisters(s);
+            s = filterImmediate(s);
+            s = appendLabels(s, output.size());
+            output.add(s);
+        }
+        output = filterEmptyLines(output);
+        return new Input(output);
+    }
+
+    /*
+    Filter input comments, whitespace, tabs, and commas for proper formatting for next stage
+    Prepare input to be formatted with reigsters, immediates, and labels
+    Build out label map as well for final insertion
+
+    Map labels built out from invariant of properly formatted String
+    Look for special character (:) and filter out based on this
+     */
+    private List<String> filterFormatting() {
+        List<String> partialFilteredInput = new ArrayList<>();
         List<String> input = this.myInput.getList();
+        this.myLabelMap = new HashMap<>();
+
         for (String s: input) {
             s = filterComments(s);
             s = filterWhitespace(s);
             s = filterTabs(s);
             s = filterCommas(s);
-            s = filterRegisters(s);
-            s = filterImmediate(s);
+            s = filterLabels(s, partialFilteredInput.size());
+//            s = filterRegisters(s);
+//            s = filterImmediate(s);
             if (notEmpty(s)) {
-                output.add(s);
+                partialFilteredInput.add(s);
             }
-
         }
-        output = filterEmptyLines(output);
-        return new Input(output);
+        return partialFilteredInput;
+    }
+
+    private String appendLabels(String s, int lineCount) {
+        String[] sarr = s.split("\\s+");
+        String last = sarr[sarr.length-1];
+        boolean inMap = this.myLabelMap.containsKey(last);
+        if (inMap) {
+            int labelLine = this.myLabelMap.get(last);
+            int absoluteOffset = labelLine - lineCount;
+            int PCOffset = absoluteOffset * 4;
+            System.out.printf("appendLabels(%s, %d)\tlast: (%s)\n", s, lineCount, last);
+            System.out.printf("labelLine: (%d)\tabsoluteOffset: (%d)\tPCOffset: (%d)\n", labelLine, absoluteOffset, PCOffset);
+
+            StringBuilder sb = new StringBuilder(s);
+            sb.replace(s.indexOf(last), s.length(), String.valueOf(PCOffset));
+            System.out.printf("updated string: (%s)\n", sb.toString());
+            s = sb.toString();
+        }
+
+        return s;
+    }
+
+    /*
+    Filter labels, from built up label map, out of string (if they exist)
+
+    Map labels built out from invariant of properly formatted String
+    Look for special character (:) and filter out based on this
+    Two cases:
+    1. Inline (e.g. "loop: add $r1, $r2, $r3")
+    2. Preline (e.g. "loop:\n add $r1, $r2, $r3)
+     */
+    private String filterLabels(String s, int lineCount) {
+        final char SEMICOLON = ':';
+        int index = s.indexOf(SEMICOLON);
+        if (index > 0) {
+            String label = s.substring(0, index);
+            label = label.substring(0, label.length());
+            this.myLabelMap.put(label, lineCount);
+            String sNew = s.substring(index+1);
+
+            System.out.printf("filterLabls(%s, %d)\t@index: (%d)\tlabel: (%s)\tsNew: (%s)\n", s, lineCount, index, label, sNew);
+            s = sNew;
+        }
+
+        return s;
     }
 
     private boolean notEmpty(String s) {

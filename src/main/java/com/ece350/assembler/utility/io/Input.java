@@ -13,11 +13,6 @@ public class Input implements Iterable, CustomList{
 
     public Input(String s) {
         this.myInput = new ArrayList<>(List.of(s.split("\n")));
-//        this.myInput = new ArrayList<>();
-//        String[] splitString = s.split("\n");
-//        for (String element: splitString) {
-//            this.myInput.add(element);
-//        }
     }
 
     public Input(List<String> input) {
