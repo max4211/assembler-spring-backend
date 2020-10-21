@@ -25,7 +25,7 @@ class FilterTest {
         List<String> expectedOutput = new ArrayList<>(List.of(
                 "add 8 9 10",
                 "sub 9 10 11",
-                "beq 8 9 -8"
+                "beq 8 9 -2"
         ));
 
         assertEquals(expectedOutput, filteredInput.getList());
@@ -45,7 +45,7 @@ class FilterTest {
         List<String> expectedOutput = new ArrayList<>(List.of(
                 "add 8 9 10",
                 "sub 9 10 11",
-                "beq 8 9 -8"
+                "beq 8 9 -2"
         ));
 
         assertEquals(expectedOutput, filteredInput.getList());
@@ -64,7 +64,7 @@ class FilterTest {
         Input filteredInput = filter.filter();
 
         List<String> expectedOutput = new ArrayList<>(List.of(
-                "beq 8 9 8",
+                "beq 8 9 2",
                 "sub 9 10 11",
                 "add 8 9 10"
         ));

@@ -12,6 +12,7 @@ public class Filter implements FilterInterface {
 
     private final Input myInput;
     private Map<String, Integer> myLabelMap;
+    private static final int WORD_SIZE = 1;
 
     public Filter(Input input) {
         this.myInput = input;
@@ -75,7 +76,7 @@ public class Filter implements FilterInterface {
         if (inMap) {
             int labelLine = this.myLabelMap.get(last);
             int absoluteOffset = labelLine - lineCount;
-            int PCOffset = absoluteOffset * 4;
+            int PCOffset = absoluteOffset * WORD_SIZE;
             StringBuilder sb = new StringBuilder(s);
             sb.replace(s.indexOf(last), s.length(), String.valueOf(PCOffset));
 
