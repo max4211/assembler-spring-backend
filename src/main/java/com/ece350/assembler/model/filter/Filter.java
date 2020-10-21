@@ -3,16 +3,14 @@ package com.ece350.assembler.model.filter;
 import com.ece350.assembler.utility.io.Input;
 import com.ece350.assembler.utility.resource.ConfigData;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Filter implements FilterInterface {
 
     private final Input myInput;
     private Map<String, Integer> myLabelMap;
     private static final int WORD_SIZE = 1;
+    private static final Set<String> OFFSET_INSN =  new HashSet<String>(List.of("bne", "blt", "beq", "bge"));
 
     public Filter(Input input) {
         this.myInput = input;
@@ -71,14 +69,19 @@ public class Filter implements FilterInterface {
 
     private String appendLabels(String s, int lineCount) {
         String[] sarr = s.split("\\s+");
+        String instruction = sarr[0];
         String last = sarr[sarr.length-1];
         boolean inMap = this.myLabelMap.containsKey(last);
         if (inMap) {
             int labelLine = this.myLabelMap.get(last);
-            int absoluteOffset = labelLine - lineCount - 1;
-            int PCOffset = absoluteOffset * WORD_SIZE;
+            int immediateValue = labelLine;
+            if (OFFSET_INSN.contains(instruction)) {
+                int absoluteOffset = labelLine - lineCount - 1;
+                immediateValue = absoluteOffset * WORD_SIZE;
+            }
+
             StringBuilder sb = new StringBuilder(s);
-            sb.replace(s.indexOf(last), s.length(), String.valueOf(PCOffset));
+            sb.replace(s.indexOf(last), s.length(), String.valueOf(immediateValue));
 
 //            System.out.printf("appendLabels(%s, %d)\tlast: (%s)\n", s, lineCount, last);
 //            System.out.printf("labelLine: (%d)\tabsoluteOffset: (%d)\tPCOffset: (%d)\n", labelLine, absoluteOffset, PCOffset);

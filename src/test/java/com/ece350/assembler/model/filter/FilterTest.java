@@ -32,11 +32,13 @@ class FilterTest {
     }
 
     @Test
-    void filterTestInline() {
+    void filterJILabel() {
         List<String> inputList = new ArrayList<>(List.of(
-                "loop: add $t0, $t1, $t2",
-                "sub $t1, $t2, $t3",
-                "beq $t0, $t1, loop"
+                "loop:  # this is a comment",
+                "add $t0, $t1, $t2 # hahaha comments",
+                "else: sub $t1, $t2, $t3",
+                "jal loop",
+                "j else"
         ));
         Input rawInput = new Input(inputList);
         Filter filter = new Filter(rawInput);
@@ -45,7 +47,28 @@ class FilterTest {
         List<String> expectedOutput = new ArrayList<>(List.of(
                 "add 8 9 10",
                 "sub 9 10 11",
-                "beq 8 9 -3"
+                "jal 0",
+                "j 1"
+        ));
+
+        assertEquals(expectedOutput, filteredInput.getList());
+    }
+
+    @Test
+    void filterTestInline() {
+        List<String> inputList = new ArrayList<>(List.of(
+                "loop: add $t0, $t1, $t2",
+                "sub $t1, $t2, $t3",
+                "blt $t0, $t1, loop"
+        ));
+        Input rawInput = new Input(inputList);
+        Filter filter = new Filter(rawInput);
+        Input filteredInput = filter.filter();
+
+        List<String> expectedOutput = new ArrayList<>(List.of(
+                "add 8 9 10",
+                "sub 9 10 11",
+                "blt 8 9 -3"
         ));
 
         assertEquals(expectedOutput, filteredInput.getList());
