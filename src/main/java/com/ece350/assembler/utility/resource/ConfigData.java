@@ -16,6 +16,7 @@ public interface ConfigData {
 
     static final Logger LOGGER = LoggerFactory.getLogger(ConfigData.class);
 
+    // TODO: Import from properties file
     static Map<String, String> getRegisterMap() {
         Map<String, String> registerMap = new HashMap<>();
 
@@ -58,9 +59,44 @@ public interface ConfigData {
         registerMap.put("$fp", "$30");
         registerMap.put("$ra", "$31");
 
-        registerMap.put("$board", "1");
-        registerMap.put("$max", "2");
-        registerMap.put("$nathan", "3");
+        registerMap.put("$r0", "$0");
+        registerMap.put("$r1", "$1");
+        registerMap.put("$r2", "$2");
+        registerMap.put("$r3", "$3");
+
+        registerMap.put("$r4", "$4");
+        registerMap.put("$r5", "$5");
+        registerMap.put("$r6", "$6");
+        registerMap.put("$r7", "$7");
+
+        registerMap.put("$r8", "$8");
+        registerMap.put("$r9", "$9");
+        registerMap.put("$r10", "$10");
+        registerMap.put("$r11", "$11");
+        registerMap.put("$r12", "$12");
+        registerMap.put("$r13", "$13");
+        registerMap.put("$r14", "$14");
+        registerMap.put("$r15", "$15");
+
+        registerMap.put("$r16", "$16");
+        registerMap.put("$r17", "$17");
+        registerMap.put("$r18", "$18");
+        registerMap.put("$r19", "$19");
+        registerMap.put("$r20", "$20");
+        registerMap.put("$r21", "$21");
+        registerMap.put("$r22", "$22");
+        registerMap.put("$r23", "$23");
+
+        registerMap.put("$r24", "$24");
+        registerMap.put("$r25", "$25");
+
+        registerMap.put("$r26", "$26");
+        registerMap.put("$r27", "$27");
+
+        registerMap.put("$r28", "$28");
+        registerMap.put("$r29", "$29");
+        registerMap.put("$r30", "$30");
+        registerMap.put("$r31", "$31");
 
         return registerMap;
     }

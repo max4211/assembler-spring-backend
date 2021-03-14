@@ -62,6 +62,9 @@ public class MemFile extends OutputFile {
 ## Deployment
 All components of the application are deployed on AWS. I used AWS Elastic Beanstalk to help streamline the deployment of the .jar file compiled via Maven of the Spring Boot source code. The front end also lives on AWS and CICD is accomplished via AWS Amplify.
 
+#### Elastic Beanstalk
+Elastic Beanstalk abstracts away server provisioning and allows you to easily upload and deploy your application. In order to deploy in this way, build the maven project with `mvn clean package`. Then, copy the resulting `*.tar` file into the ELB interface. Once the file has been uploaded, modify the ELB environment properties (Environment --> Configuration --> Software) and set `PORT: 8080` (this is the default port SpringBoot serves requests on, however ELB by default routes them to port 5000). Next, update the health check in the appropriate Target Group to ping the endpoint `/actuator/health`. Finally, as is you will get a CORS error when sending requests to this server. To update the ELB instance to serve https requests on the same domain, follow these instructions from [AWS](https://aws.amazon.com/premiumsupport/knowledge-center/elastic-beanstalk-https-configuration/). Good luck! (devops is hard)
+
 ## Future Work
 1. Move the configuration files to a GitHub repository to pull in at runtime.
 2. Test SpringBoot components to validate expected behavior
@@ -69,7 +72,8 @@ All components of the application are deployed on AWS. I used AWS Elastic Beanst
 4. Add support for translating multiple files at once
 5. Add validation  on translation request to verify immediate overflow and input arg count per instruction
 6. Instruction translation through stacks/tree DFS to improve accuracy
-8. Improve filtering robustness
+7. Improve filtering robustness
+9. Improve ELB deployment through application.yaml and CLI
 
 ## Author
 Max Smith
