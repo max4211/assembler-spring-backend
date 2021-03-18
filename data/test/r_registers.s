@@ -9,3 +9,4 @@ add    $r22, $r23, $r24
 add    $r25, $r26, $r27
 add    $r28, $r29, $r30
 add    $r0, $r31, $r31
+lw $r3, 3($r0)

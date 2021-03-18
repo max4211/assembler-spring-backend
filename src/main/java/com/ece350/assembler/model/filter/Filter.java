@@ -30,8 +30,8 @@ public class Filter implements FilterInterface {
         List<String> partialFilteredInput = filterFormatting();
 
         for (String s: partialFilteredInput) {
-            s = filterRegisters(s);
             s = filterImmediate(s);
+            s = filterRegisters(s);
             s = appendLabels(s, output.size());
             output.add(s);
         }
@@ -190,9 +190,14 @@ public class Filter implements FilterInterface {
 
     /*
     * Expected behavior - replace all register names with int value of register
+    * Bug detected as of 3/18, for lw/sw operations, register is nested inside of parentheses
+    * Rethink how to do this - maybe go through full register map, and replace register if seen?
+    * Too costly - idea, look for regex expression matching register values, then parse value and replace
+    * Better idea - have a better splitting function (on spaces or parentheses)
+    * On second thought - regex not the best approach because it will remove parentheses (but we need to keep them)
+    * Just loop through register map and replace (worst case scenario is 64 iterations * 4096 lines, still fast
     * */
     private String filterRegisterNames(String input) {
-        final String SPACE = " ";
         final Map<String, String> resourceBundle = ConfigData.getRegisterMap();
         StringBuilder sb = new StringBuilder(input);
         String[] split = input.split("\\s+");

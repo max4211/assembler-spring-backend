@@ -204,4 +204,12 @@ class FilterTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    void testSpecialImmediate() {
+        String input = "lw $r3, 3($r0)";
+        String expected = "lw 3 0 3";
+        Filter filter = new Filter(input);
+        String result = filter.filter().getList().get(0);
+        assertEquals(expected, result);
+    }
 }
