@@ -47,7 +47,7 @@ public class Replacer implements ReplaceInterface{
         List<String> inputWithFilteredLabels = new ArrayList<>();
         for (int index = 0; index < input.size(); index ++) {
             String s = input.get(index);
-            s = filterLabels(s, index);
+            s = filterLabels(s, inputWithFilteredLabels.size());
             if (notEmpty(s)) {
                 inputWithFilteredLabels.add(s);
             }
