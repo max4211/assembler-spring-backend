@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReplacerTest {
 
     @Test
-    void filterTestBasic() {
+    void replacerTestBasic() {
         List<String> inputList = new ArrayList<>(List.of(
                 "loop:",
                 "add $t0, $t1, $t2",
@@ -32,7 +32,7 @@ class ReplacerTest {
     }
 
     @Test
-    void filterJILabel() {
+    void replaceJILabel() {
         List<String> inputList = new ArrayList<>(List.of(
                 "loop:",
                 "add $t0, $t1, $t2",
@@ -55,7 +55,7 @@ class ReplacerTest {
     }
 
     @Test
-    void filterTestInline() {
+    void replacerTestInline() {
         List<String> inputList = new ArrayList<>(List.of(
                 "loop: add $t0, $t1, $t2",
                 "sub $t1, $t2, $t3",
@@ -75,7 +75,7 @@ class ReplacerTest {
     }
 
     @Test
-    void filterTestForward() {
+    void replacerTestForward() {
         List<String> inputList = new ArrayList<>(List.of(
                 "beq $t0, $t1, loop",
                 "sub $t1, $t2, $t3",
@@ -96,7 +96,7 @@ class ReplacerTest {
     }
 
     @Test
-    void testFilterEmptyLines() {
+    void replacetestReplacerEmptyLines() {
         List<String> input = new ArrayList<>(List.of(
                 "add $1, $2, $3",
                 "sub $2, $4, $5",
@@ -113,7 +113,7 @@ class ReplacerTest {
     }
 
     @Test
-    void testFilterComments() {
+    void replacetestReplacerComments() {
         List<String> input = new ArrayList<>(List.of(
                 "add $1, $2, $3",
                 "sub $2, $4, $5",
@@ -130,7 +130,7 @@ class ReplacerTest {
     }
 
     @Test
-    void testFilterDollar() {
+    void replacetestReplacerDollar() {
         List<String> input = new ArrayList<>(List.of(
                 "add $1, $2, $3",
                 "sub $2, $4, $5",
@@ -147,7 +147,7 @@ class ReplacerTest {
     }
 
     @Test
-    void testFilterRegisterNames() {
+    void replacetestReplacerRegisterNames() {
         List<String> input = new ArrayList<>(List.of(
                 "add $t9, $t2, $t1",
                 "sub $a0, $a1, $a2",
@@ -164,7 +164,7 @@ class ReplacerTest {
     }
 
     @Test
-    void testFilterImmediate() {
+    void replacetestReplacerImmediate() {
         List<String> input = new ArrayList<>(List.of(
                 "sw $0, 14($1)",
                 "lw $0, 19($5)"));

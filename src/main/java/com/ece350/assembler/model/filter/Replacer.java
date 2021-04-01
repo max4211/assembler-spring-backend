@@ -29,7 +29,8 @@ public class Replacer implements ReplaceInterface{
     public Input replace() {
         List<String> output = new ArrayList<>();
         List<String> inputWithFilteredLabels = createLabelMap();
-        for (String s: this.myInput.getList()) {
+        for (String s: inputWithFilteredLabels) {
+            s = filterCommas(s);
             s = filterImmediate(s);
             s = filterRegisters(s);
             s = appendLabels(s, output.size());
