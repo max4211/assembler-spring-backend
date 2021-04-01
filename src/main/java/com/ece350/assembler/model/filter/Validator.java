@@ -31,10 +31,6 @@ public class Validator implements ValidatorInterface {
         return null;
     }
 
-    private boolean checkRegisters(String s) {
-        return false;
-    }
-
     private boolean checkInstructionExists(String s) {
         return false;
     }
@@ -43,6 +39,12 @@ public class Validator implements ValidatorInterface {
         return false;
     }
 
+    // TODO: Implement register checks
+    private boolean checkRegisters(String s) {
+        return false;
+    }
+
+    // TODO: Implement label checks
     private boolean checkLabelExists(String s) {
         return false;
     }
