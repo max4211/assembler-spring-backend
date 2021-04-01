@@ -21,7 +21,6 @@ public class Assembler implements AssemblerInterface {
 
     @Override
     public Output assemble(Input input) {
-        input = new Filter(input).filter();
         Iterator iter = input.iterator();
         Output output = new Output();
         while (iter.hasNext()) {

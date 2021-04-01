@@ -4,6 +4,8 @@ import com.ece350.assembler.ISA.ISA;
 import com.ece350.assembler.data.xmlreader.XMLReader;
 import com.ece350.assembler.exceptions.GeneralParserException;
 import com.ece350.assembler.model.assembler.Assembler;
+import com.ece350.assembler.model.filter.Filter;
+import com.ece350.assembler.model.filter.Replacer;
 import com.ece350.assembler.utility.resource.ConfigData;
 import org.springframework.core.io.ByteArrayResource;
 import org.xml.sax.SAXException;
@@ -27,6 +29,12 @@ public interface MainAssembler {
             // ISA myISA = reader.getISA();
             Assembler myAssembler = new Assembler(myISA);
             Input input = new Input(fileString);
+            Filter filter = new Filter(input);
+            input = filter.filter();
+
+            // TODO: Validation from validator
+            Replacer replacer = new Replacer(input);
+            input = replacer.replace();
 
             // FINAL OUTPUT CONSTRUCTION AND WRITE
             Output output = myAssembler.assemble(input);
