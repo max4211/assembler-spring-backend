@@ -22,6 +22,29 @@ public class Validator implements ValidatorInterface {
 
     @Override
     public List<String> validateFile() {
+        ValidationErrorList errorList = new ValidationErrorList();
+        List<String> input = this.myInput.getList();
+        for (int index = 0; index < input.size(); index ++) {
+            String s = input.get(index);
+
+        }
         return null;
     }
+
+    private boolean checkRegisters(String s) {
+        return false;
+    }
+
+    private boolean checkInstructionExists(String s) {
+        return false;
+    }
+
+    private boolean checkInstructionFormat(String s) {
+        return false;
+    }
+
+    private boolean checkLabelExists(String s) {
+        return false;
+    }
+
 }
