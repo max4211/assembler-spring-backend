@@ -13,4 +13,9 @@ public interface ValidationErrorListInterface {
      * @return size of list of errors
      */
     int size();
+
+    /**
+     * Convert into a string for presenting to the user
+     */
+    String toString();
 }

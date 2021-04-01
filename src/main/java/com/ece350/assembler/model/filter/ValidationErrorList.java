@@ -21,4 +21,14 @@ public class ValidationErrorList implements ValidationErrorListInterface {
     public int size() {
         return this.myErrors.size();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (ValidationError validationError: this.myErrors) {
+            sb.append(validationError.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
 }

@@ -25,20 +25,19 @@ public class Validator implements ValidatorInterface {
         this.myInput = new Input(input);
     }
 
+    // TODO: Implement validation checks
     private boolean validInstruction(String code) {
-        return true;
+        return false;
     }
 
     private boolean validInstructionFormat(String code) {
         return true;
     }
 
-    // TODO: Implement register checks
     private boolean validRegisters(String code) {
         return true;
     }
 
-    // TODO: Implement label checks
     private boolean validLabel(String code) {
         return true;
     }

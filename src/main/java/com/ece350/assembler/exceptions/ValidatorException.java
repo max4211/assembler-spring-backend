@@ -14,4 +14,9 @@ public class ValidatorException extends RuntimeException {
         super();
         this.myErrorList = validationErrorList;
     }
+
+    @Override
+    public String toString() {
+        return this.myErrorList.toString();
+    }
 }

@@ -1,6 +1,7 @@
 package com.ece350.assembler.spring;
 
 import com.ece350.assembler.exceptions.GeneralParserException;
+import com.ece350.assembler.exceptions.ValidatorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class Controller {
     private final Service myService;
     private static final Logger LOGGER = LoggerFactory.getLogger(Controller.class);
     private static final String ERROR_EXTENSION = "err";
+    private static final int VALIDATION_ERROR_RESPONSE = 450;
 
     @Autowired
     public Controller(Service service) {
@@ -56,17 +58,19 @@ public class Controller {
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(resource);
 
-        } catch (GeneralParserException | IOException e) {
+        } catch (ValidatorException e) {
             LOGGER.error("Failed to assemble file, returning bad request");
-            String errorMessage = "Testing error message";
+            String errorMessage = e.toString(); // "Testing error message";
             byte[] errorMessageBytes = errorMessage.getBytes();
             ByteArrayResource resource = new ByteArrayResource(errorMessageBytes);
             HttpHeaders header = createHeaders(filePrefix, ERROR_EXTENSION);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            return ResponseEntity.status(VALIDATION_ERROR_RESPONSE)
                     .headers(header)
                     .contentLength(resource.contentLength())
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(resource);
+        } catch (GeneralParserException | IOException e) {
+            return null;
         }
     }
 

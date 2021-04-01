@@ -21,7 +21,6 @@ import java.io.IOException;
 
 public interface MainAssembler {
 
-    // TODO: Fine tune error handling
     static ByteArrayResource assemble(String fileString, String fileType, String outputBase) throws ValidatorException {
         String digits = parseDigits(outputBase);
         ISA myISA = ConfigData.getISAData();

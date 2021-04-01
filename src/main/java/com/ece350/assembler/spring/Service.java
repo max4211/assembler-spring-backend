@@ -3,6 +3,7 @@ package com.ece350.assembler.spring;
 import com.amazonaws.util.IOUtils;
 import com.ece350.assembler.MainAssembler;
 import com.ece350.assembler.exceptions.GeneralParserException;
+import com.ece350.assembler.exceptions.ValidatorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
@@ -19,15 +20,15 @@ public class Service {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Service.class);
 
-    public ByteArrayResource assembleUserInput(MultipartFile file, String type, String base) throws IOException, GeneralParserException {
+    public ByteArrayResource assembleUserInput(MultipartFile file, String type, String base) throws IOException, GeneralParserException, ValidatorException {
         String content = null;
         LOGGER.info("Attempting to assemble user output from service");
 
         try {
             content = new String(file.getBytes());
             return MainAssembler.assemble(content, type, base);
-        } catch (GeneralParserException | IOException e) {
-            LOGGER.debug("Failed to assemble user output from service due to GeneralParserExecption or IOException");
+        } catch (GeneralParserException | IOException | ValidatorException e) {
+            LOGGER.debug(String.format("Failed to assemble user output from service due to %s", e.getClass()));
             throw e;
         }
     }

@@ -12,5 +12,9 @@ public class ValidationError {
         this.myLine = line;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Line #%d (%s) - %s", this.myLine, this.myCode, this.myError);
+    }
 
 }
