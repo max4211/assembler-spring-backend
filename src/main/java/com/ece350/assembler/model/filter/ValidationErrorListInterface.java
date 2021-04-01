@@ -7,4 +7,10 @@ public interface ValidationErrorListInterface {
      * @param validationError specific error message
      */
     void add(ValidationError validationError);
+
+    /**
+     * Gets size of validation errors
+     * @return size of list of errors
+     */
+    int size();
 }

@@ -16,4 +16,9 @@ public class ValidationErrorList implements ValidationErrorListInterface {
     public void add(ValidationError validationError) {
         this.myErrors.add(validationError);
     }
+
+    @Override
+    public int size() {
+        return this.myErrors.size();
+    }
 }

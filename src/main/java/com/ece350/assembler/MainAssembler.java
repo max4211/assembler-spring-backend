@@ -3,9 +3,12 @@ package com.ece350.assembler;
 import com.ece350.assembler.ISA.ISA;
 import com.ece350.assembler.data.xmlreader.XMLReader;
 import com.ece350.assembler.exceptions.GeneralParserException;
+import com.ece350.assembler.exceptions.ValidatorException;
 import com.ece350.assembler.model.assembler.Assembler;
 import com.ece350.assembler.model.filter.Filter;
 import com.ece350.assembler.model.filter.Replacer;
+import com.ece350.assembler.model.filter.ValidationErrorList;
+import com.ece350.assembler.model.filter.Validator;
 import com.ece350.assembler.utility.resource.ConfigData;
 import org.springframework.core.io.ByteArrayResource;
 import org.xml.sax.SAXException;
@@ -18,30 +21,31 @@ import java.io.IOException;
 
 public interface MainAssembler {
 
-    static ByteArrayResource assemble(String fileString, String fileType, String outputBase) throws GeneralParserException {
-        try {
-            // CODE WHICH WILL BE USER INPUT PARAMETERS
-            String digits = parseDigits(outputBase);
+    // TODO: Fine tune error handling
+    static ByteArrayResource assemble(String fileString, String fileType, String outputBase) throws ValidatorException {
+        String digits = parseDigits(outputBase);
+        ISA myISA = ConfigData.getISAData();
+        Assembler myAssembler = new Assembler(myISA);
+        // XMLReader xmlReader = new XMLReader();
+        // ISA myISA = reader.getISA();
 
-            // MODEL CODE TO GET TO OUTPUT
-            XMLReader xmlReader = new XMLReader();
-            ISA myISA = ConfigData.getISAData();
-            // ISA myISA = reader.getISA();
-            Assembler myAssembler = new Assembler(myISA);
-            Input input = new Input(fileString);
-            Filter filter = new Filter(input);
-            input = filter.filter();
+        // Filter and validate input data
+        Input input = new Input(fileString);
+        Filter filter = new Filter(input);
+        input = filter.filter();
 
-            // TODO: Validation from validator
-            Replacer replacer = new Replacer(input);
-            input = replacer.replace();
-
-            // FINAL OUTPUT CONSTRUCTION AND WRITE
-            Output output = myAssembler.assemble(input);
-            return output.writeToFile(fileType, outputBase, digits);
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            throw new GeneralParserException(e);
+        // Validate file, throw exception if needed
+        Validator validator = new Validator(input);
+        validator.validateFile();
+        if (validator.hasErrors()) {
+            throw new ValidatorException(validator.getErrors());
         }
+        Replacer replacer = new Replacer(input);
+        input = replacer.replace();
+
+        // File validated, final output construction
+        Output output = myAssembler.assemble(input);
+        return output.writeToFile(fileType, outputBase, digits);
     }
 
     static String parseDigits(String outputBase) {
