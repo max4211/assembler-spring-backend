@@ -34,4 +34,20 @@ class FilterTest {
         assertEquals(expectedOutput, filteredInput.getList());
     }
 
+    @Test
+    void filterTestWhitespace() {
+        List<String> inputList = new ArrayList<>(List.of(
+                "       loop:          "
+        ));
+        Input rawInput = new Input(inputList);
+        Filter filter = new Filter(rawInput);
+        Input filteredInput = filter.filter();
+
+        List<String> expectedOutput = new ArrayList<>(List.of(
+                "loop:"
+        ));
+
+        assertEquals(expectedOutput, filteredInput.getList());
+    }
+
 }
