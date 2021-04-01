@@ -5,6 +5,11 @@ import com.ece350.assembler.utility.resource.ConfigData;
 
 import java.util.*;
 
+/*
+* The purpose of this class is to filter the user inputted instructions of formatting
+* Filters applied will affect whitespace, comments, and newlines
+* The output of this class will feed into a validator to perform error checking on input
+* */
 public class Filter implements FilterInterface {
 
     private final Input myInput;
@@ -27,44 +32,16 @@ public class Filter implements FilterInterface {
     @Override
     public Input filter() {
         List<String> output = new ArrayList<>();
-        List<String> partialFilteredInput = filterFormatting();
 
-        for (String s: partialFilteredInput) {
-            s = filterImmediate(s);
-            s = filterRegisters(s);
-            s = appendLabels(s, output.size());
-            output.add(s);
-        }
-        output = filterEmptyLines(output);
-        return new Input(output);
-    }
-
-    /*
-    Filter input comments, whitespace, tabs, and commas for proper formatting for next stage
-    Prepare input to be formatted with reigsters, immediates, and labels
-    Build out label map as well for final insertion
-
-    Map labels built out from invariant of properly formatted String
-    Look for special character (:) and filter out based on this
-     */
-    private List<String> filterFormatting() {
-        List<String> partialFilteredInput = new ArrayList<>();
-        List<String> input = this.myInput.getList();
-        this.myLabelMap = new HashMap<>();
-
-        for (String s: input) {
+        for (String s: this.myInput.getList()) {
             s = filterComments(s);
             s = filterWhitespace(s);
             s = filterTabs(s);
-            s = filterCommas(s);
-            s = filterLabels(s, partialFilteredInput.size());
-//            s = filterRegisters(s);
-//            s = filterImmediate(s);
             if (notEmpty(s)) {
-                partialFilteredInput.add(s);
+                output.add(s);
             }
         }
-        return partialFilteredInput;
+        return new Input(output);
     }
 
     private String appendLabels(String s, int lineCount) {
