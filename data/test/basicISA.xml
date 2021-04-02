@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ISA>
+    <Instruction>
+        <Name>max</Name>
+        <Type>R</Type>
+        <Code>01010</Code>
+    </Instruction>
+</ISA>

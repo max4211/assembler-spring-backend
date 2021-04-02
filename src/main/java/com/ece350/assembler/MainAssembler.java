@@ -11,6 +11,7 @@ import com.ece350.assembler.model.filter.ValidationErrorList;
 import com.ece350.assembler.model.filter.Validator;
 import com.ece350.assembler.utility.resource.ConfigData;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.SAXException;
 import com.ece350.assembler.utility.io.Input;
 import com.ece350.assembler.utility.io.Output;
@@ -18,10 +19,11 @@ import com.ece350.assembler.utility.io.Output;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 public interface MainAssembler {
 
-    static ByteArrayResource assemble(String fileString, String fileType, String outputBase) throws ValidatorException {
+    static ByteArrayResource assemble(String fileString, String fileType, String outputBase, Optional<MultipartFile> xmlISA) throws ValidatorException {
         String digits = parseDigits(outputBase);
         ISA myISA = ConfigData.getISAData();
         // TODO: Append ISA with more information

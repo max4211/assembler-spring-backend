@@ -18,7 +18,7 @@ public class Validator implements ValidatorInterface {
     private ValidationErrorList myErrorList;
     private static final String COLON = ":";
     private static final String IMMEDIATE_REGEX = "-?\\d+";
-    private static final String REGISTER_ERROR = "Invalid register";
+    private static final String OPERAND_ERROR = "Invalid operand";
     private static final String INSTRUCTION_ERROR = "Instruction does not exist";
     private static final String FORMAT_ERROR = "Instruction format is invalid";
     private static final String LOOP_ERROR = "Loop does not exist";
@@ -128,7 +128,7 @@ public class Validator implements ValidatorInterface {
                         this.myErrorList.add(new ValidationError(index, code, FORMAT_ERROR, invalidFormat));
                     String invalidOperands = validOperands(instructionComponent);
                     if (!invalidOperands.equals(EMPTY))
-                        this.myErrorList.add(new ValidationError(index, code, REGISTER_ERROR, invalidOperands));
+                        this.myErrorList.add(new ValidationError(index, code, OPERAND_ERROR, invalidOperands));
                 }
             }
         }

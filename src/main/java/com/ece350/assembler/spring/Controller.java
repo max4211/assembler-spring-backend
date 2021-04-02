@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -45,12 +46,12 @@ public class Controller {
     public ResponseEntity<Resource> generateAssembledOutput(
             @PathVariable("type") String type, @PathVariable("base") String base,
             @RequestParam("file") MultipartFile file,
-            @RequestParam("isa") MultipartFile xmlISA) {
+            @RequestParam("isa") Optional<MultipartFile> xmlISA) {
         String filePrefix = getFilePrefix(file.getOriginalFilename());
 
         try {
             LOGGER.info("Inside Controller.java, attempting to assemble file");
-            ByteArrayResource resource = myService.assembleUserInput(file, type, base);
+            ByteArrayResource resource = myService.assembleUserInput(file, xmlISA, type, base);
             HttpHeaders header = createHeaders(filePrefix, type);
 
             return ResponseEntity.ok()
