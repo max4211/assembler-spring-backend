@@ -16,8 +16,8 @@ public class InstructionComponent {
     private static final String SPACE = " ";
 
     private final String myCode;
-    private final String myInstruction;
-    private final String[] myOperands;
+    private String myInstruction;
+    private String[] myOperands;
     private String myLabel;
     private String myImmediate;
 
@@ -34,9 +34,11 @@ public class InstructionComponent {
         }
 
         code = code.replace(OPEN, SPACE).replace(CLOSE, SPACE);
-        String[] split = code.split("\\s+");
-        this.myInstruction = split[0];
-        this.myOperands = Arrays.copyOfRange(split, 1, split.length);
+        if (code != null && code.length() > 0) {
+            String[] split = code.split("\\s+");
+            this.myInstruction = split[0];
+            this.myOperands = Arrays.copyOfRange(split, 1, split.length);
+        }
     }
     
     public String getCode() {
@@ -60,5 +62,9 @@ public class InstructionComponent {
     
     public String getImmediate() {
         return this.myImmediate;
+    }
+
+    public boolean isOnlyLabel() {
+        return this.myLabel != null && this.myLabel.length() > 0 && this.myInstruction == null;
     }
 }
