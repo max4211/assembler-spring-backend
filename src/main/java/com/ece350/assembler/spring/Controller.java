@@ -2,6 +2,7 @@ package com.ece350.assembler.spring;
 
 import com.ece350.assembler.exceptions.GeneralParserException;
 import com.ece350.assembler.exceptions.ValidatorException;
+import com.ece350.assembler.exceptions.XMLConfigException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +61,8 @@ public class Controller {
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(resource);
 
-        } catch (ValidatorException e) {
-            LOGGER.error("Failed to assemble file, returning bad request");
+        } catch (ValidatorException | XMLConfigException e) {
+            LOGGER.error(String.format("Failed to assemble file due to exception %s, returning bad request", e.getClass()));
             String errorMessage = e.toString(); // "Testing error message";
             byte[] errorMessageBytes = errorMessage.getBytes();
             ByteArrayResource resource = new ByteArrayResource(errorMessageBytes);

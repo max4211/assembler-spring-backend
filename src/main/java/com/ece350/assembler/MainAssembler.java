@@ -4,6 +4,7 @@ import com.ece350.assembler.ISA.ISA;
 import com.ece350.assembler.data.xmlreader.XMLReader;
 import com.ece350.assembler.exceptions.GeneralParserException;
 import com.ece350.assembler.exceptions.ValidatorException;
+import com.ece350.assembler.exceptions.XMLConfigException;
 import com.ece350.assembler.model.assembler.Assembler;
 import com.ece350.assembler.model.filter.Filter;
 import com.ece350.assembler.model.filter.Replacer;
@@ -28,14 +29,13 @@ public interface MainAssembler {
             String fileString = new String(xmlISA.getBytes());
             return new XMLReader(fileString);
         } catch (IOException | ParserConfigurationException | SAXException e) {
-            throw new GeneralParserException(e);
+            throw new XMLConfigException(e);
         }
     }
 
-    static ByteArrayResource assemble(String fileString, String fileType, String outputBase, Optional<MultipartFile> xmlISA) throws ValidatorException {
+    static ByteArrayResource assemble(String fileString, String fileType, String outputBase, Optional<MultipartFile> xmlISA) throws ValidatorException, XMLConfigException {
         String digits = parseDigits(outputBase);
         ISA myISA = ConfigData.getISAData();
-        // TODO: Append ISA with more information
         if (xmlISA.isPresent()) {
             MultipartFile xmlFile = xmlISA.get();
             XMLReader xmlReader = createXMLReader(xmlFile);
@@ -43,8 +43,6 @@ public interface MainAssembler {
             myISA.append(extendedISA);
         }
         Assembler myAssembler = new Assembler(myISA);
-        // XMLReader xmlReader = new XMLReader();
-        // ISA myISA = reader.getISA();
 
         // Filter and validate input data
         Input input = new Input(fileString);
