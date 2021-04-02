@@ -27,4 +27,14 @@ public class ISA implements ISAInterface {
     public Triplet get(int index) {
         return this.myISA.get(index);
     }
+
+    @Override
+    public String getType(String inst) {
+        for (Triplet t: this.myISA) {
+            if (t.getName().equals(inst)) {
+                return t.getType();
+            }
+        }
+        return null;
+    }
 }

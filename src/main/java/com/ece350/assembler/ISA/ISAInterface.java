@@ -19,4 +19,11 @@ public interface ISAInterface {
      */
     Triplet get(int index);
 
+    /**
+     * Fetch type of instruction
+     * @param inst instruction to get type of
+     * @return String representing type
+     */
+    String getType(String inst);
+
 }
