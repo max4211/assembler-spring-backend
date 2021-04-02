@@ -88,7 +88,7 @@ public class Validator implements ValidatorInterface {
             return EMPTY;
         String[] operands = instructionComponent.getOperands();
         for (String operand: operands) {
-            if (!isImmediate(operand) || !isRegister(operand) || !isLabel(operand)) {
+            if (!isImmediate(operand) && !isRegister(operand) && !isLabel(operand)) {
                 return operand;
             }
         }
