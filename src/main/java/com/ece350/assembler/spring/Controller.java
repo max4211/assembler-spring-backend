@@ -44,7 +44,8 @@ public class Controller {
     )
     public ResponseEntity<Resource> generateAssembledOutput(
             @PathVariable("type") String type, @PathVariable("base") String base,
-            @RequestParam("file") MultipartFile file) {
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("isa") MultipartFile xmlISA) {
         String filePrefix = getFilePrefix(file.getOriginalFilename());
 
         try {
