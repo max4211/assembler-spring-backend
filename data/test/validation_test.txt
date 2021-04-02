@@ -1,0 +1,11 @@
+loop:
+add $r1, $r2        # should throw expected 3 arguments
+sub $r2, $r4, $r52, 47  # should throw invalid arguments (count) and operands
+su $r4, $r5, $r6    # should throw invalid instruction
+custom $r8, $r9     $ should throw invalid instruction
+j label             # should throw missing label
+j                   # should throw missing operands
+lw                 # should throw missing operands
+sw $r3, 0($r8)      # should be okay
+sw $r3, 0($r98)      # should throw invalid register
+lw $r3, 0($r92), $r4      # should throw invalid argument count and oeprands

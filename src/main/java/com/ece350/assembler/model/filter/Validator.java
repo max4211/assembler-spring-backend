@@ -55,9 +55,9 @@ public class Validator implements ValidatorInterface {
     }
 
     // TODO: Improve robustness (currently operand count check)
-    private boolean validInstructionFormat(InstructionComponent instructionComponent) {
+    private String validInstructionFormat(InstructionComponent instructionComponent) {
         if (instructionComponent.isOnlyLabel())
-            return true;
+            return EMPTY;
         String type = this.myISA.getType(instructionComponent.getInstruction());
         String[] operands = instructionComponent.getOperands();
         int totalOperands = operands.length;
@@ -65,12 +65,16 @@ public class Validator implements ValidatorInterface {
         switch(type) {
             case "R":
             case "I":
-                return totalOperands == 3;
+                if (totalOperands != 3)
+                    return String.format("Expected 3 operands, got %d", totalOperands);
+                return EMPTY;
             case "JI":
             case "JII":
-                return totalOperands == 1;
+                if (totalOperands != 1)
+                    return String.format("Expected 1 operand, got %d", totalOperands);
+                return EMPTY;
             default:
-                return true;
+                return EMPTY;
         }
     }
 
@@ -119,10 +123,11 @@ public class Validator implements ValidatorInterface {
                 if (!validInstruction(instructionComponent))
                     this.myErrorList.add(new ValidationError(index, code, INSTRUCTION_ERROR, instructionComponent.getInstruction()));
                 else if (!(instructionComponent.isOnlyLabel())) { // Instruction has been validated, can check other fields
-                    if (!validInstructionFormat(instructionComponent))
-                        this.myErrorList.add(new ValidationError(index, code, FORMAT_ERROR, EMPTY)); // TODO: Give better instruction on error
+                    String invalidFormat = validInstructionFormat(instructionComponent);
+                    if (!invalidFormat.equals(EMPTY))
+                        this.myErrorList.add(new ValidationError(index, code, FORMAT_ERROR, invalidFormat));
                     String invalidOperands = validOperands(instructionComponent);
-                    if (invalidOperands.equals(EMPTY))
+                    if (!invalidOperands.equals(EMPTY))
                         this.myErrorList.add(new ValidationError(index, code, REGISTER_ERROR, invalidOperands));
                 }
             }
