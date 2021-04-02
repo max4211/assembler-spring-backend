@@ -23,10 +23,25 @@ import java.util.Optional;
 
 public interface MainAssembler {
 
+    static XMLReader createXMLReader(MultipartFile xmlISA) throws GeneralParserException {
+        try {
+            String fileString = new String(xmlISA.getBytes());
+            return new XMLReader(fileString);
+        } catch (IOException | ParserConfigurationException | SAXException e) {
+            throw new GeneralParserException(e);
+        }
+    }
+
     static ByteArrayResource assemble(String fileString, String fileType, String outputBase, Optional<MultipartFile> xmlISA) throws ValidatorException {
         String digits = parseDigits(outputBase);
         ISA myISA = ConfigData.getISAData();
         // TODO: Append ISA with more information
+        if (xmlISA.isPresent()) {
+            MultipartFile xmlFile = xmlISA.get();
+            XMLReader xmlReader = createXMLReader(xmlFile);
+            ISA extendedISA = xmlReader.getISA();
+            myISA.append(extendedISA);
+        }
         Assembler myAssembler = new Assembler(myISA);
         // XMLReader xmlReader = new XMLReader();
         // ISA myISA = reader.getISA();

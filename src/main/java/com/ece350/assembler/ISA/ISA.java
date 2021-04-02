@@ -37,4 +37,15 @@ public class ISA implements ISAInterface {
         }
         return null;
     }
+
+    @Override
+    public void append(ISA extendedISA) {
+        List<Triplet> extendedTriplets = extendedISA.getISA();
+        this.myISA.addAll(extendedTriplets);
+    }
+
+    @Override
+    public List<Triplet> getISA() {
+        return this.myISA;
+    }
 }
