@@ -24,6 +24,7 @@ public interface MainAssembler {
     static ByteArrayResource assemble(String fileString, String fileType, String outputBase) throws ValidatorException {
         String digits = parseDigits(outputBase);
         ISA myISA = ConfigData.getISAData();
+        // TODO: Append ISA with more information
         Assembler myAssembler = new Assembler(myISA);
         // XMLReader xmlReader = new XMLReader();
         // ISA myISA = reader.getISA();
@@ -34,7 +35,7 @@ public interface MainAssembler {
         input = filter.filter();
 
         // Validate file, throw exception if needed
-        Validator validator = new Validator(input);
+        Validator validator = new Validator(input, myISA);
         validator.validateFile();
         if (validator.hasErrors()) {
             throw new ValidatorException(validator.getErrors());
