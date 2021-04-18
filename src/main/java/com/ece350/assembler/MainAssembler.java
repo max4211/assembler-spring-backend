@@ -10,7 +10,10 @@ import com.ece350.assembler.model.filter.Filter;
 import com.ece350.assembler.model.filter.Replacer;
 import com.ece350.assembler.model.filter.ValidationErrorList;
 import com.ece350.assembler.model.filter.Validator;
+import com.ece350.assembler.spring.Controller;
 import com.ece350.assembler.utility.resource.ConfigData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.SAXException;
@@ -18,11 +21,12 @@ import com.ece350.assembler.utility.io.Input;
 import com.ece350.assembler.utility.io.Output;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
 public interface MainAssembler {
+
+    Logger LOGGER = LoggerFactory.getLogger(MainAssembler.class);
 
     static XMLReader createXMLReader(MultipartFile xmlISA) throws GeneralParserException {
         try {
@@ -41,6 +45,7 @@ public interface MainAssembler {
             XMLReader xmlReader = createXMLReader(xmlFile);
             ISA extendedISA = xmlReader.getISA();
             myISA.append(extendedISA);
+            LOGGER.info(String.format("Loaded %d custom instructions", extendedISA.getISA().size()));
         }
         Assembler myAssembler = new Assembler(myISA);
 
@@ -57,6 +62,7 @@ public interface MainAssembler {
         }
         Replacer replacer = new Replacer(input);
         input = replacer.replace();
+        LOGGER.info(String.format("Assembling file of length %d", input.getList().size()));
 
         // File validated, final output construction
         Output output = myAssembler.assemble(input);

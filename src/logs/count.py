@@ -1,5 +1,6 @@
 #get file object reference to the file
-file = open("web.stdout.log", "r")
+filename = "C:\\Users\\smith\\Downloads\\BundleLogs-1618778958203\\var\\log\\web.stdout.log"
+file = open(filename, "r")
 
 #read content of file to string
 data = file.read()
