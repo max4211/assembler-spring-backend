@@ -65,6 +65,9 @@ Input MIPS files are now [validated](https://github.com/max4211/assembler-spring
 ### Custom Instructions
 The assembler also supports the addition of custom instructions. In order to use these, they must be of type R, I, JI, or JII and uploaded in parallel with the associated MIPS file in XML format. The schema of said file will be validated and coarse error messages may be thrown if the XML is incorrectly formatted. In the future, improved schema validation will help improve the overall function of the assembler.
 
+## Logging and Metrics
+[SL4FJ](http://www.slf4j.org/manual.html) was used to perform logging. From these logs, a [log parsing script](https://github.com/max4211/assembler-spring-backend/blob/master/src/logs/count.py) exists to count usgae.
+
 ### General Instruction Path
 The general flow of instruction assembly is as follows (see MainAssembler for pipeline):
 1. Instructions are accepted by the [Spring Boot Controller](https://github.com/max4211/assembler-spring-backend/blob/master/src/main/java/com/ece350/assembler/spring/Controller.java) and then passed through to the [Spring Boot Service](https://github.com/max4211/assembler-spring-backend/blob/master/src/main/java/com/ece350/assembler/spring/Controller.java), along with desired file type (e.g. MIF) and base (e.g. binary).
