@@ -98,6 +98,44 @@ public interface ConfigData {
         registerMap.put("$r30", "$30");
         registerMap.put("$r31", "$31");
 
+        registerMap.put("$0", "$0");
+        registerMap.put("$1", "$1");
+        registerMap.put("$2", "$2");
+        registerMap.put("$3", "$3");
+
+        registerMap.put("$4", "$4");
+        registerMap.put("$5", "$5");
+        registerMap.put("$6", "$6");
+        registerMap.put("$7", "$7");
+
+        registerMap.put("$8", "$8");
+        registerMap.put("$9", "$9");
+        registerMap.put("$10", "$10");
+        registerMap.put("$11", "$11");
+        registerMap.put("$12", "$12");
+        registerMap.put("$13", "$13");
+        registerMap.put("$14", "$14");
+        registerMap.put("$15", "$15");
+
+        registerMap.put("$16", "$16");
+        registerMap.put("$17", "$17");
+        registerMap.put("$18", "$18");
+        registerMap.put("$19", "$19");
+        registerMap.put("$20", "$20");
+        registerMap.put("$21", "$21");
+        registerMap.put("$22", "$22");
+        registerMap.put("$23", "$23");
+
+        registerMap.put("$24", "$24");
+        registerMap.put("$25", "$25");
+        registerMap.put("$26", "$26");
+        registerMap.put("$27", "$27");
+
+        registerMap.put("$28", "$28");
+        registerMap.put("$29", "$29");
+        registerMap.put("$30", "$30");
+        registerMap.put("$31", "$31");
+
         return registerMap;
     }
 
