@@ -60,10 +60,21 @@ public class MemFile extends OutputFile {
 ```
 
 ### Input Validation
-
+Input MIPS files are now [validated](https://github.com/max4211/assembler-spring-backend/blob/master/src/main/java/com/ece350/assembler/model/filter/Validator.java) before the assembly process occurs. Instructions are confirmed to exist, the correct operands must be present, all labels must also exist, as do registers. Assembly will only continue if all of these checks are complete. If one or more instructions are invalid, the Validator will return errors to the calling function and the file will not be assembled. A detailed error output will be returned to the user with file numbers and descriptive error messages. Note that some edge case instructions may slip through to be assembled. In the future, carrying through the original instruction (along with the filtered instruction) will be useful for complete error handling. 
 
 ### Custom Instructions
+The assembler also supports the addition of custom instructions. In order to use these, they must be of type R, I, JI, or JII and uploaded in parallel with the associated MIPS file in XML format. The schema of said file will be validated and coarse error messages may be thrown if the XML is incorrectly formatted. In the future, improved schema validation will help improve the overall function of the assembler.
 
+### General Instruction Path
+The general flow of instruction assembly is as follows (see MainAssembler for pipeline):
+1. Instructions are accepted by the [Spring Boot Controller](https://github.com/max4211/assembler-spring-backend/blob/master/src/main/java/com/ece350/assembler/spring/Controller.java) and then passed through to the [Spring Boot Service](https://github.com/max4211/assembler-spring-backend/blob/master/src/main/java/com/ece350/assembler/spring/Controller.java), along with desired file type (e.g. MIF) and base (e.g. binary).
+2. Any custom instructions are validated and appended to the default ISA.
+3. Whitespace, tabs, and comments are [Filtered](https://github.com/max4211/assembler-spring-backend/blob/master/src/main/java/com/ece350/assembler/model/filter/Filter.java) 
+4. The MIPS file is [Validated](https://github.com/max4211/assembler-spring-backend/blob/master/src/main/java/com/ece350/assembler/model/filter/Validator.java)
+5. Assuming no validation errors, the instructions are then [Replaced](https://github.com/max4211/assembler-spring-backend/blob/master/src/main/java/com/ece350/assembler/model/filter/Replacer.java) into an easy to assemble format. For example, all register values are replaced with integers, commas are removed, and labels are replaced with the appropriate numeric value indicating the offset from the jumping instruction.
+6. Instructions are assembled one at a time into 32 digit binary and collected into a single list.
+7. The instructions are optionally converted into a different base and then packaged into the indicated file type
+8. Assembled file is returned to the frontend.
 
 ## Deployment
 All components of the application are deployed on AWS. I used AWS Elastic Beanstalk to help streamline the deployment of the .jar file compiled via Maven of the Spring Boot source code. The front end also lives on AWS and CICD is accomplished via AWS Amplify.
@@ -78,6 +89,8 @@ Finally, as is you will get a CORS error when sending requests to this server. T
 2. Add support for translating multiple files at once.
 3. Improve robustness of validation.
 4. Improve ELB deployment through application.yaml and CLI
+5. More robust schema validation and error messages on custom instruction templates. 
+6. Fix assembly of different base instructions (overflow occurs during some hex translations when using built in Java Integer/String manipulation, a custom converter is recommended).
 
 ## Author
 Max Smith
